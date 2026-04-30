@@ -1,21 +1,23 @@
 let balance = 0;
 
-function addIncome() {
-  let amount = prompt("Enter income:");
-  amount = parseFloat(amount);
+function updateUI() {
+  document.getElementById("balance").innerText = balance.toFixed(2);
+}
 
-  if (!isNaN(amount)) {
+function addIncome() {
+  let amount = parseFloat(prompt("Enter income:"));
+
+  if (!isNaN(amount) && amount > 0) {
     balance += amount;
-    alert("Income added! Balance: " + balance);
+    updateUI();
   }
 }
 
 function addExpense() {
-  let amount = prompt("Enter expense:");
-  amount = parseFloat(amount);
+  let amount = parseFloat(prompt("Enter expense:"));
 
-  if (!isNaN(amount)) {
+  if (!isNaN(amount) && amount > 0) {
     balance -= amount;
-    alert("Expense added! Balance: " + balance);
+    updateUI();
   }
 }
