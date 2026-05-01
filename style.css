@@ -125,3 +125,16 @@ li button:hover {
 .balance-card {
   border-left: 4px solid #3b82f6;
 }
+/* all your current CSS above */
+
+body.light {
+  background: #f1f5f9;
+  color: #0f172a;
+}
+
+body.light .card,
+body.light li,
+body.light .balance-box {
+  background: white;
+  color: black;
+}
