@@ -133,3 +133,6 @@ function renderHistory() {
 }
 
 updateUI();
+if ("serviceWorker" in navigator) {
+  navigator.serviceWorker.register("sw.js");
+}
