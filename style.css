@@ -89,3 +89,39 @@ li button {
 li button:hover {
   opacity: 0.8;
 }
+.dashboard {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.card {
+  background: #1e293b;
+  padding: 15px;
+  border-radius: 12px;
+  text-align: center;
+}
+
+.card p {
+  margin: 0;
+  opacity: 0.7;
+  font-size: 14px;
+}
+
+.card h3 {
+  margin: 5px 0 0;
+  font-size: 22px;
+}
+
+.income-card {
+  border-left: 4px solid #22c55e;
+}
+
+.expense-card {
+  border-left: 4px solid #ef4444;
+}
+
+.balance-card {
+  border-left: 4px solid #3b82f6;
+}
