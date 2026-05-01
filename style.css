@@ -52,13 +52,6 @@ ul {
   padding: 0;
 }
 
-li button {
-  background: #334155;
-  color: white;
-  padding: 5px 10px;
-  border-radius: 6px;
-  cursor: pointer;
-}
 li {
   background: #1e293b;
   margin-bottom: 10px;
@@ -69,4 +62,30 @@ li {
   justify-content: space-between;
   align-items: center;
 }
-  
+
+.income {
+  color: #22c55e;
+  font-weight: bold;
+}
+
+.expense {
+  color: #ef4444;
+  font-weight: bold;
+}
+
+li div {
+  display: flex;
+  gap: 5px;
+}
+
+li button {
+  background: #334155;
+  color: white;
+  padding: 5px 8px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+li button:hover {
+  opacity: 0.8;
+}
