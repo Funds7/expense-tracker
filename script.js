@@ -23,6 +23,12 @@ function calculateTotals() {
 function updateUI() {
   const totals = calculateTotals();
 
+  document.getElementById("totalIncome").innerText =
+    "$" + totals.income.toFixed(2);
+
+  document.getElementById("totalExpense").innerText =
+    "$" + totals.expense.toFixed(2);
+
   document.getElementById("balance").innerText =
     "$" + totals.balance.toFixed(2);
 
