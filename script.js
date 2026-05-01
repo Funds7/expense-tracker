@@ -1,23 +1,30 @@
-let balance = 0;
 let history = JSON.parse(localStorage.getItem("history")) || [];
 
 function saveData() {
   localStorage.setItem("history", JSON.stringify(history));
 }
 
-function calculateBalance() {
-  balance = history.reduce((total, item) => {
-    return item.type === "Income"
-      ? total + item.amount
-      : total - item.amount;
-  }, 0);
+function calculateTotals() {
+  let income = 0;
+  let expense = 0;
+
+  history.forEach(item => {
+    if (item.type === "Income") income += item.amount;
+    else expense += item.amount;
+  });
+
+  return {
+    income,
+    expense,
+    balance: income - expense
+  };
 }
 
 function updateUI() {
-  calculateBalance();
+  const totals = calculateTotals();
 
   document.getElementById("balance").innerText =
-    "$" + balance.toFixed(2);
+    "$" + totals.balance.toFixed(2);
 
   renderHistory();
 }
@@ -46,6 +53,21 @@ function deleteItem(index) {
   updateUI();
 }
 
+function editItem(index) {
+  let current = history[index];
+
+  let newAmount = parseFloat(
+    prompt("Edit amount:", current.amount)
+  );
+
+  if (isNaN(newAmount) || newAmount <= 0) return;
+
+  history[index].amount = newAmount;
+
+  saveData();
+  updateUI();
+}
+
 function renderHistory() {
   const list = document.getElementById("history");
   list.innerHTML = "";
@@ -54,13 +76,18 @@ function renderHistory() {
     let li = document.createElement("li");
 
     li.innerHTML = `
-      <span>${item.type} $${item.amount.toFixed(2)}</span>
-      <button onclick="deleteItem(${index})">Delete</button>
+      <span class="${item.type.toLowerCase()}">
+        ${item.type} $${item.amount.toFixed(2)}
+      </span>
+
+      <div>
+        <button onclick="editItem(${index})">Edit</button>
+        <button onclick="deleteItem(${index})">Delete</button>
+      </div>
     `;
 
     list.appendChild(li);
   });
 }
 
-// Load app
 updateUI();
