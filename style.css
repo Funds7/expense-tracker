@@ -4,28 +4,33 @@ html, body {
 
 body {
   margin: 0;
+  padding: 20px;
   min-height: 100vh;
-  font-family: Arial, sans-serif;
   background: #0f172a;
   color: white;
-  padding: 20px;
+  font-family: Arial, sans-serif;
+  border: 5px solid red; /* remove later */
 }
 
+/* MAIN CONTAINER */
 .container {
-  width: 100%;
-  max-width: 400px;
+  max-width: 420px;
   margin: 0 auto;
+  padding: 16px;
 }
 
+/* HEADER */
 .header {
   text-align: center;
   margin-bottom: 15px;
+  margin-top: 10px;
 }
 
+/* BALANCE */
 .balance-box {
   background: #1e293b;
   padding: 20px;
-  border-radius: 12px;
+  border-radius: 18px;
   text-align: center;
   margin-bottom: 20px;
 }
@@ -35,6 +40,46 @@ body {
   font-weight: bold;
 }
 
+/* DASHBOARD */
+.dashboard {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.card {
+  background: #1e293b;
+  padding: 15px;
+  border-radius: 18px;
+  text-align: center;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+}
+
+.card p {
+  margin: 0;
+  opacity: 0.7;
+  font-size: 14px;
+}
+
+.card h3 {
+  margin: 5px 0 0;
+  font-size: 22px;
+}
+
+.income-card {
+  border-left: 4px solid #22c55e;
+}
+
+.expense-card {
+  border-left: 4px solid #ef4444;
+}
+
+.balance-card {
+  border-left: 4px solid #3b82f6;
+}
+
+/* BUTTONS */
 .buttons {
   display: flex;
   justify-content: space-between;
@@ -49,7 +94,7 @@ button {
   border-radius: 8px;
   font-size: 16px;
   cursor: pointer;
-  transition: 0.2s; /* move it here */
+  transition: 0.2s;
 }
 
 button:first-child {
@@ -59,11 +104,13 @@ button:first-child {
 button:last-child {
   background: #ef4444;
 }
+
 button:hover {
   opacity: 0.85;
   transform: scale(1.02);
 }
 
+/* TRANSACTIONS */
 ul {
   list-style: none;
   padding: 0;
@@ -73,7 +120,7 @@ li {
   background: #1e293b;
   margin-bottom: 10px;
   padding: 10px;
-  border-radius: 8px;
+  border-radius: 18px;
 
   display: flex;
   justify-content: space-between;
@@ -106,45 +153,8 @@ li button {
 li button:hover {
   opacity: 0.8;
 }
-.dashboard {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 10px;
-  margin-bottom: 20px;
-}
 
-.card {
-  background: #1e293b;
-  padding: 15px;
-  border-radius: 12px;
-  text-align: center;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.3);
-}
-
-.card p {
-  margin: 0;
-  opacity: 0.7;
-  font-size: 14px;
-}
-
-.card h3 {
-  margin: 5px 0 0;
-  font-size: 22px;
-}
-
-.income-card {
-  border-left: 4px solid #22c55e;
-}
-
-.expense-card {
-  border-left: 4px solid #ef4444;
-}
-
-.balance-card {
-  border-left: 4px solid #3b82f6;
-}
-/* all your current CSS above */
-
+/* LIGHT MODE */
 body.light {
   background: #f1f5f9;
   color: #0f172a;
@@ -155,11 +165,4 @@ body.light li,
 body.light .balance-box {
   background: white;
   color: black;
-}
-body {
-  border: 5px solid red;
-}
-
-.container {
-  border: 5px solid yellow;
 }
