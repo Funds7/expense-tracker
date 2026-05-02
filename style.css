@@ -156,3 +156,10 @@ body.light .balance-box {
   background: white;
   color: black;
 }
+body {
+  border: 5px solid red;
+}
+
+.container {
+  border: 5px solid yellow;
+}
