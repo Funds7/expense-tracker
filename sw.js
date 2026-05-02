@@ -3,7 +3,7 @@ const CACHE_NAME = "expense-tracker-v4";
 const urlsToCache = [
   "./",
   "./index.html",
-  "./style.css",
+  "./style-v2.css",
   "./script.js",
   "./manifest.json",
   "./icon.png"
