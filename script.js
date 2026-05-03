@@ -1,35 +1,76 @@
 let balance = 0;
-let history = [];
+let transactions = JSON.parse(localStorage.getItem("transactions")) || [];
 
-function updateUI() {
-  document.getElementById("balance").innerText = "$" + balance;
+const balanceEl = document.getElementById("balance");
+const historyEl = document.getElementById("history");
 
-  let list = document.getElementById("history");
-  list.innerHTML = "";
+const ctx = document.getElementById("chart").getContext("2d");
 
-  history.forEach(item => {
-    let li = document.createElement("li");
-    li.innerText = item;
-    list.appendChild(li);
+let chart = new Chart(ctx, {
+  type: "doughnut",
+  data: {
+    labels: ["Income", "Expense"],
+    datasets: [{
+      data: [0, 0],
+      backgroundColor: ["#22c55e", "#ef4444"]
+    }]
+  }
+});
+
+function update() {
+  balance = 0;
+  let income = 0;
+  let expense = 0;
+
+  historyEl.innerHTML = "";
+
+  transactions.forEach(t => {
+    const li = document.createElement("li");
+    li.innerText = `${t.desc}: $${t.amount}`;
+    li.style.color = t.type === "income" ? "#22c55e" : "#ef4444";
+    historyEl.appendChild(li);
+
+    if (t.type === "income") {
+      balance += t.amount;
+      income += t.amount;
+    } else {
+      balance -= t.amount;
+      expense += t.amount;
+    }
   });
+
+  balanceEl.innerText = "$" + balance;
+
+  chart.data.datasets[0].data = [income, expense];
+  chart.update();
+
+  localStorage.setItem("transactions", JSON.stringify(transactions));
 }
 
 function addIncome() {
-  let amount = parseFloat(prompt("Enter income:"));
-  if (isNaN(amount)) return;
-
-  balance += amount;
-  history.push("+ $" + amount + " Income");
-  updateUI();
+  addTransaction("income");
 }
 
 function addExpense() {
-  let amount = parseFloat(prompt("Enter expense:"));
-  if (isNaN(amount)) return;
-
-  balance -= amount;
-  history.push("- $" + amount + " Expense");
-  updateUI();
+  addTransaction("expense");
 }
 
-updateUI();
+function addTransaction(type) {
+  const desc = document.getElementById("desc").value;
+  const amount = parseFloat(document.getElementById("amount").value);
+
+  if (!desc || isNaN(amount)) return;
+
+  transactions.push({
+    desc,
+    amount,
+    type
+  });
+
+  document.getElementById("desc").value = "";
+  document.getElementById("amount").value = "";
+
+  update();
+}
+
+update();
