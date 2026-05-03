@@ -12,38 +12,61 @@ body {
   text-align: center;
 }
 
+h1 {
+  font-size: 20px;
+}
+
 .card {
   background: #1e293b;
   padding: 15px;
   border-radius: 12px;
-  margin-bottom: 15px;
+  margin: 15px 0;
 }
 
 #balance {
   font-size: 28px;
-  font-weight: bold;
 }
 
-.buttons button {
+.form input {
+  width: 100%;
   padding: 10px;
-  margin: 5px;
+  margin: 5px 0;
+  border-radius: 8px;
+  border: none;
+}
+
+.buttons {
+  display: flex;
+  gap: 10px;
+}
+
+button {
+  flex: 1;
+  padding: 10px;
   border: none;
   border-radius: 8px;
   cursor: pointer;
+  color: white;
 }
 
-.buttons button:first-child {
+button:first-child {
   background: #22c55e;
-  color: white;
 }
 
-.buttons button:last-child {
+button:last-child {
   background: #ef4444;
-  color: white;
 }
 
 ul {
   list-style: none;
   padding: 0;
   text-align: left;
+}
+
+li {
+  background: #1e293b;
+  margin: 5px 0;
+  padding: 8px;
+  border-radius: 8px;
+  font-size: 14px;
 }
