@@ -1,56 +1,25 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Expense Tracker</title>
 
-  <link rel="stylesheet" href="style-v2.css">
-
-  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-
   <link rel="manifest" href="./manifest.json">
-  <meta name="theme-color" content="#0f172a">
+  <meta name="theme-color" content="#0f172a"/>
+
+  <link rel="stylesheet" href="style.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 
-  <body>
-
+<body>
   <div class="container">
 
-  <div class="header">
-    <div class="image-box">
-  <img src="icon.png" class="logo">
-    </div>
     <h1>Expense Tracker</h1>
-    <p>Track your income and expenses easily</p>
-  </div>
 
-    <!-- DASHBOARD -->
-    <div class="dashboard">
-      <div class="card income-card">
-        <p>Total Income</p>
-        <h3 id="totalIncome">$0</h3>
-      </div>     
-
-      <div class="card expense-card">
-        <p>Total Expense</p>
-        <h3 id="totalExpense">$0</h3>
-      </div>
-
-      <div class="card balance-card">
-        <p>Balance</p>
-        <h3 id="balance">$0</h3>
-      </div>
-   </div>
-    
-<p style="color:#22c55e;">● Live tracking active</p>
-    
-    <div class="chart-box">
-       <canvas id="financeChart"></canvas>
-    </div>
-
-    <div class="controls">
-      <button onclick="toggleCurrency()">Switch Currency</button>
-      <button onclick="toggleTheme()">Toggle Theme</button>
+    <div class="card">
+      <h2>Balance</h2>
+      <p id="balance">$0</p>
     </div>
 
     <div class="buttons">
@@ -58,16 +27,19 @@
       <button onclick="addExpense()">- Expense</button>
     </div>
 
+    <canvas id="chart"></canvas>
+
+    <h3>History</h3>
     <ul id="history"></ul>
+
   </div>
 
   <script src="script.js"></script>
 
   <script>
-  if ("serviceWorker" in navigator) {
-    navigator.serviceWorker.register("sw.js");
-  }
+    if ("serviceWorker" in navigator) {
+      navigator.serviceWorker.register("./sw.js");
+    }
   </script>
-
 </body>
 </html>
