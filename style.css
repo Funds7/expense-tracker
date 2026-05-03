@@ -1,34 +1,48 @@
+:root {
+  --bg: #0b1220;
+  --card: #1e293b;
+  --text: white;
+}
+
+.light {
+  --bg: #f4f4f4;
+  --card: white;
+  --text: black;
+}
+
 body {
   margin: 0;
   font-family: Arial;
-  background: #0b1220;
-  color: white;
-  padding: 20px;
+  background: var(--bg);
+  color: var(--text);
+  transition: 0.3s;
 }
 
 .container {
-  max-width: 450px;
+  max-width: 500px;
   margin: auto;
-  text-align: center;
+  padding: 15px;
 }
 
-h1 {
-  font-size: 18px;
+.topbar {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px 15px;
 }
 
 .card {
-  background: #1e293b;
+  background: var(--card);
   padding: 15px;
   border-radius: 12px;
   margin: 10px 0;
 }
 
-.card.small {
-  font-size: 14px;
-  text-align: left;
+.stats {
+  display: flex;
+  justify-content: space-between;
 }
 
-.form input, .form select {
+input, select {
   width: 100%;
   padding: 10px;
   margin: 5px 0;
@@ -49,12 +63,17 @@ button {
   color: white;
 }
 
-button:first-child {
-  background: #22c55e;
+button:first-child { background: #22c55e; }
+button:last-child { background: #ef4444; }
+
+.actions {
+  display: flex;
+  gap: 10px;
+  margin: 10px 0;
 }
 
-button:last-child {
-  background: #ef4444;
+.actions button {
+  background: #3b82f6;
 }
 
 ul {
@@ -63,10 +82,9 @@ ul {
 }
 
 li {
-  background: #1e293b;
+  background: var(--card);
   margin: 5px 0;
   padding: 10px;
   border-radius: 8px;
-  text-align: left;
   cursor: pointer;
 }
