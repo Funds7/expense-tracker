@@ -1,6 +1,6 @@
 {
-  "name": "Expense Tracker",
-  "short_name": "Expense",
+  "name": "Expense Tracker Pro",
+  "short_name": "ExpensePro",
   "start_url": "./",
   "display": "standalone",
   "background_color": "#0f172a",
