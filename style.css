@@ -14,11 +14,16 @@ body {
 
 /* MAIN CONTAINER */
 .container {
+  width: 100%;
   max-width: 420px;
   margin: 0 auto;
   padding: 16px;
+  box-sizing: border-box;
 }
-
+.image-box {
+  width: 100%;
+  overflow: hidden;
+}
 /* HEADER */
 .header {
   text-align: center;
@@ -165,4 +170,16 @@ body.light li,
 body.light .balance-box {
   background: white;
   color: black;
+}
+/* 🔥 FIX FLOATING / SIDE SCROLL */
+html, body {
+  width: 100%;
+  overflow-x: hidden;
+}
+
+/* 🔥 FIX IMAGE OVERFLOW */
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
 }
