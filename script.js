@@ -1,5 +1,5 @@
 let data = JSON.parse(localStorage.getItem("data")) || [];
-let lastDeleted = null;
+let deletedStack = [];
 
 const balanceEl = document.getElementById("balance");
 const incomeEl = document.getElementById("income");
@@ -17,35 +17,45 @@ let chart = new Chart(ctx, {
 });
 
 function addTx(type) {
-  let desc = document.getElementById("desc").value;
-  let amount = parseFloat(document.getElementById("amount").value);
-  let category = document.getElementById("category").value;
+  const desc = document.getElementById("desc");
+  const amount = document.getElementById("amount");
+  const category = document.getElementById("category");
 
-  if (!desc || isNaN(amount)) return;
+  if (!desc.value || !amount.value) return;
 
-  data.push({ desc, amount, category, type, date: new Date() });
+  data.push({
+    desc: desc.value,
+    amount: parseFloat(amount.value),
+    category: category.value,
+    type,
+    date: new Date().toISOString()
+  });
+
+  desc.value = "";
+  amount.value = "";
 
   save();
 }
 
 function render() {
+  const search = document.getElementById("search").value.toLowerCase();
+
   let balance = 0, income = 0, expense = 0;
-  let search = document.getElementById("search").value.toLowerCase();
 
   listEl.innerHTML = "";
 
-  data.forEach((t, i) => {
+  data.forEach((t, index) => {
     if (!t.desc.toLowerCase().includes(search)) return;
 
-    let li = document.createElement("li");
+    const li = document.createElement("li");
 
     li.innerHTML = `
       ${t.desc} (${t.category}) - $${t.amount}
     `;
 
     li.onclick = () => {
-      lastDeleted = t;
-      data.splice(i, 1);
+      deletedStack.push(t);
+      data.splice(index, 1);
       save();
     };
 
@@ -66,8 +76,6 @@ function render() {
 
   chart.data.datasets[0].data = [income, expense];
   chart.update();
-
-  localStorage.setItem("data", JSON.stringify(data));
 }
 
 function save() {
@@ -76,11 +84,10 @@ function save() {
 }
 
 function undo() {
-  if (lastDeleted) {
-    data.push(lastDeleted);
-    lastDeleted = null;
-    save();
-  }
+  if (deletedStack.length === 0) return;
+
+  data.push(deletedStack.pop());
+  save();
 }
 
 function toggleTheme() {
@@ -89,12 +96,14 @@ function toggleTheme() {
 
 function exportCSV() {
   let csv = "Desc,Category,Amount,Type\n";
+
   data.forEach(t => {
     csv += `${t.desc},${t.category},${t.amount},${t.type}\n`;
   });
 
-  let blob = new Blob([csv], { type: "text/csv" });
-  let a = document.createElement("a");
+  const blob = new Blob([csv], { type: "text/csv" });
+  const a = document.createElement("a");
+
   a.href = URL.createObjectURL(blob);
   a.download = "expenses.csv";
   a.click();
