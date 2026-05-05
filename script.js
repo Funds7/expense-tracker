@@ -1,3 +1,4 @@
+console.log("🔥 SCRIPT LOADED SUCCESSFULLY");
 import { db } from "./firebase.js";
 import {
   collection,
