@@ -3,9 +3,12 @@ import { getFirestore, collection, addDoc, getDocs }
 from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
 const firebaseConfig = {
-  apiKey: "YOUR_KEY",
-  authDomain: "YOUR_DOMAIN",
-  projectId: "YOUR_ID",
+  apiKey: "AIzaSyDxxxxx",
+  authDomain: "expense-tracker-123.firebaseapp.com",
+  projectId: "expense-tracker-123",
+  storageBucket: "expense-tracker-123.appspot.com",
+  messagingSenderId: "...",
+  appId: "..."
 };
 
 const app = initializeApp(firebaseConfig);
