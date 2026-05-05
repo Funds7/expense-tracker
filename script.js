@@ -11,7 +11,7 @@ import {
 const list = document.getElementById("list");
 const balanceEl = document.getElementById("balance");
 
-// ➕ ADD
+// ➕ ADD TRANSACTION
 window.addTransaction = async () => {
   const title = document.getElementById("title").value;
   const amount = document.getElementById("amount").value;
@@ -22,14 +22,14 @@ window.addTransaction = async () => {
   await addDoc(collection(db, "transactions"), {
     title,
     amount: Number(amount),
-    type
+    type // ALWAYS lowercase: income / expense
   });
 
   document.getElementById("title").value = "";
   document.getElementById("amount").value = "";
 };
 
-// 📥 REALTIME + BALANCE FIX
+// 📥 REALTIME + BALANCE ENGINE
 const q = query(collection(db, "transactions"));
 
 onSnapshot(q, (snapshot) => {
@@ -40,22 +40,26 @@ onSnapshot(q, (snapshot) => {
   snapshot.forEach((docSnap) => {
     const data = docSnap.data();
 
-    // 💰 FIX: income vs expense logic
-    if (data.type === "income") {
-      balance += data.amount;
-    } else {
-      balance -= data.amount;
+    const type = data.type;
+    const amount = Number(data.amount);
+
+    if (type === "income") {
+      balance += amount;
+    }
+
+    if (type === "expense") {
+      balance -= amount;
     }
 
     list.innerHTML += `
-      <div>
-        <b>${data.title}</b> - ₦${data.amount} (${data.type})
+      <div style="margin-bottom:10px">
+        <b>${data.title}</b> - ₦${amount} (${type})
         <button onclick="deleteTx('${docSnap.id}')">X</button>
       </div>
     `;
   });
 
-  if (balanceEl) balanceEl.innerText = balance;
+  balanceEl.innerText = balance;
 });
 
 // ❌ DELETE
