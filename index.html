@@ -6,20 +6,26 @@
 </head>
 <body>
 
-<h2>💰 Expense Tracker V3</h2>
+<div class="container">
 
-<input id="title" placeholder="Title">
-<input id="amount" placeholder="Amount">
+  <h2>💰 Expense Tracker V3</h2>
 
-<select id="type">
-  <option value="expense">Expense</option>
-  <option value="income">Income</option>
-</select>
+  <h3>Balance: ₦<span id="balance">0</span></h3>
 
-<button onclick="addTransaction()">Add</button>
+  <input id="title" placeholder="Title">
+  <input id="amount" placeholder="Amount">
 
-<h3>Transactions</h3>
-<div id="list"></div>
+  <select id="type">
+    <option value="expense">Expense</option>
+    <option value="income">Income</option>
+  </select>
+
+  <button onclick="addTransaction()">Add</button>
+
+  <h3>Transactions</h3>
+  <div id="list"></div>
+
+</div>
 
 <script type="module" src="script.js"></script>
 
