@@ -11,6 +11,8 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
+console.log("Firebase connected");
+
 const balanceEl = document.getElementById("balance");
 const incomeEl = document.getElementById("income");
 const expenseEl = document.getElementById("expense");
