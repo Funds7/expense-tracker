@@ -1,5 +1,15 @@
-let data = JSON.parse(localStorage.getItem("data")) || [];
-let deletedStack = [];
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+import { getFirestore, collection, addDoc, getDocs } 
+from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+
+const firebaseConfig = {
+  apiKey: "YOUR_KEY",
+  authDomain: "YOUR_DOMAIN",
+  projectId: "YOUR_ID",
+};
+
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
 
 const balanceEl = document.getElementById("balance");
 const incomeEl = document.getElementById("income");
@@ -16,15 +26,15 @@ let chart = new Chart(ctx, {
   }
 });
 
-function addTx(type) {
+async function addTx(type) {
   const desc = document.getElementById("desc");
   const amount = document.getElementById("amount");
   const category = document.getElementById("category");
 
   if (!desc.value || !amount.value) return;
 
-  data.push({
-    desc: desc.value,
+  await addDoc(collection(db, "expenses"), {
+    title: desc.value,
     amount: parseFloat(amount.value),
     category: category.value,
     type,
@@ -34,30 +44,22 @@ function addTx(type) {
   desc.value = "";
   amount.value = "";
 
-  save();
+  render();
 }
 
-function render() {
-  const search = document.getElementById("search").value.toLowerCase();
+async function render() {
+  const querySnapshot = await getDocs(collection(db, "expenses"));
 
   let balance = 0, income = 0, expense = 0;
 
   listEl.innerHTML = "";
 
-  data.forEach((t, index) => {
-    if (!t.desc.toLowerCase().includes(search)) return;
+  querySnapshot.forEach((doc) => {
+    const t = doc.data();
+const id = doc.id;
 
     const li = document.createElement("li");
-
-    li.innerHTML = `
-      ${t.desc} (${t.category}) - $${t.amount}
-    `;
-
-    li.onclick = () => {
-      deletedStack.push(t);
-      data.splice(index, 1);
-      save();
-    };
+    li.innerHTML = `${t.title} (${t.category}) - ₦${t.amount}`;
 
     if (t.type === "income") {
       income += t.amount;
@@ -70,43 +72,11 @@ function render() {
     listEl.appendChild(li);
   });
 
-  balanceEl.innerText = "$" + balance;
-  incomeEl.innerText = "$" + income;
-  expenseEl.innerText = "$" + expense;
+  balanceEl.innerText = "₦" + balance;
+  incomeEl.innerText = "₦" + income;
+  expenseEl.innerText = "₦" + expense;
 
   chart.data.datasets[0].data = [income, expense];
   chart.update();
 }
-
-function save() {
-  localStorage.setItem("data", JSON.stringify(data));
-  render();
-}
-
-function undo() {
-  if (deletedStack.length === 0) return;
-
-  data.push(deletedStack.pop());
-  save();
-}
-
-function toggleTheme() {
-  document.body.classList.toggle("light");
-}
-
-function exportCSV() {
-  let csv = "Desc,Category,Amount,Type\n";
-
-  data.forEach(t => {
-    csv += `${t.desc},${t.category},${t.amount},${t.type}\n`;
-  });
-
-  const blob = new Blob([csv], { type: "text/csv" });
-  const a = document.createElement("a");
-
-  a.href = URL.createObjectURL(blob);
-  a.download = "expenses.csv";
-  a.click();
-}
-
-render();
+window.onload = render;
