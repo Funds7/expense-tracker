@@ -9,8 +9,9 @@ import {
 } from "firebase/firestore";
 
 const list = document.getElementById("list");
+const balanceEl = document.getElementById("balance");
 
-// 🔥 ADD TRANSACTION
+// ➕ ADD
 window.addTransaction = async () => {
   const title = document.getElementById("title").value;
   const amount = document.getElementById("amount").value;
@@ -21,22 +22,30 @@ window.addTransaction = async () => {
   await addDoc(collection(db, "transactions"), {
     title,
     amount: Number(amount),
-    type,
-    date: new Date()
+    type
   });
 
   document.getElementById("title").value = "";
   document.getElementById("amount").value = "";
 };
 
-// 📥 REALTIME GET DATA
+// 📥 REALTIME + BALANCE FIX
 const q = query(collection(db, "transactions"));
 
 onSnapshot(q, (snapshot) => {
   list.innerHTML = "";
 
+  let balance = 0;
+
   snapshot.forEach((docSnap) => {
     const data = docSnap.data();
+
+    // 💰 FIX: income vs expense logic
+    if (data.type === "income") {
+      balance += data.amount;
+    } else {
+      balance -= data.amount;
+    }
 
     list.innerHTML += `
       <div>
@@ -45,6 +54,8 @@ onSnapshot(q, (snapshot) => {
       </div>
     `;
   });
+
+  if (balanceEl) balanceEl.innerText = balance;
 });
 
 // ❌ DELETE
