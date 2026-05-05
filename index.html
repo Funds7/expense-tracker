@@ -1,62 +1,27 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Expense Tracker Ultra Pro</title>
-
-<link rel="stylesheet" href="style.css">
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <title>Expense Tracker V3</title>
+  <link rel="stylesheet" href="style.css">
 </head>
-
 <body>
 
-<div class="topbar">
-  <h2>💎 Ultra Expense</h2>
-  <button onclick="toggleTheme()">🌙</button>
-</div>
+<h2>💰 Expense Tracker V3</h2>
 
-<div class="container">
+<input id="title" placeholder="Title">
+<input id="amount" placeholder="Amount">
 
-  <div class="card">
-    <h3>Balance</h3>
-    <h1 id="balance">₦0</h1>
-    <p id="month">This Month: ₦0</p>
-  </div>
+<select id="type">
+  <option value="expense">Expense</option>
+  <option value="income">Income</option>
+</select>
 
-  <div class="card stats">
-    <p>Income: <span id="income">₦0</span></p>
-    <p>Expense: <span id="expense">₦0</span></p>
-  </div>
+<button onclick="addTransaction()">Add</button>
 
-  <div class="form">
-    <input id="desc" placeholder="Description">
+<h3>Transactions</h3>
+<div id="list"></div>
 
-    <select id="category">
-      <option>Food</option>
-      <option>Transport</option>
-      <option>Bills</option>
-      <option>Shopping</option>
-      <option>Other</option>
-    </select>
+<script type="module" src="script.js"></script>
 
-    <input id="amount" type="number" placeholder="Amount">
-
-    <div class="buttons">
-      <button onclick="addTx('income')">+ Income</button>
-      <button onclick="addTx('expense')">- Expense</button>
-    </div>
-  </div>
-
-  <input id="search" oninput="render()" placeholder="Search transactions...">
-
-  <canvas id="chart"></canvas>
-
-  <h3>History</h3>
-  <ul id="list"></ul>
-
-</div>
-
-<script src="script.js"></script>
 </body>
 </html>
