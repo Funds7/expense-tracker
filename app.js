@@ -27,23 +27,26 @@ onSnapshot(q, (snapshot) => {
     const data = docSnap.data();
 
     // calculate balance
-    const value = Number(data.amount) || 0;
+    snapshot.forEach((docSnap) => {
+  const data = docSnap.data();
 
-if (data.type === "expense") {
-  total -= value;
-} else {
-  total += value;
-}
+  const value = Number(data.amount) || 0;
+  const type = (data.type || "").toLowerCase();
 
-    // UI item
-    const li = document.createElement("li");
-    li.innerHTML = `
-      ${data.title} - ₦${data.amount}
-      <button onclick="deleteExpense('${docSnap.id}')">X</button>
-    `;
+  if (type === "expense") {
+    total -= value;
+  } else {
+    total += value;
+  }
 
-    list.appendChild(li);
-  });
+  const li = document.createElement("li");
+  li.innerHTML = `
+    ${data.title} - ₦${value}
+    <button onclick="deleteExpense('${docSnap.id}')">X</button>
+  `;
+
+  list.appendChild(li);
+});
 
   balanceEl.innerText = "Balance: ₦" + total;
 });
