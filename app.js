@@ -27,11 +27,13 @@ onSnapshot(q, (snapshot) => {
     const data = docSnap.data();
 
     // calculate balance
-    if (data.type === "expense") {
-      total -= Number(data.amount);
-    } else {
-      total += Number(data.amount);
-    }
+    const value = Number(data.amount) || 0;
+
+if (data.type === "expense") {
+  total -= value;
+} else {
+  total += value;
+}
 
     // UI item
     const li = document.createElement("li");
