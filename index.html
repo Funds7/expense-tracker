@@ -1,33 +1,28 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Expense Tracker V3</title>
-  <link rel="stylesheet" href="style.css">
+  <title>Expense Tracker V2</title>
 </head>
 <body>
 
-<div class="container">
+  <h1 id="balance">Balance: ₦0</h1>
 
-  <h2>💰 Expense Tracker V3</h2>
+  <div id="form">
+    <input id="title" placeholder="Title" />
+    <input id="amount" type="number" placeholder="Amount" />
 
-  <h3>Balance: ₦<span id="balance">0</span></h3>
+    <select id="type">
+      <option value="expense">Expense</option>
+      <option value="income">Income</option>
+    </select>
 
-  <input id="title" placeholder="Title">
-  <input id="amount" placeholder="Amount">
+    <input id="category" placeholder="Category" />
 
-  <select id="type">
-    <option value="income">Income</option>
-    <option value="expense">Expense</option>
-  </select>
+    <button onclick="addExpense()">Add</button>
+  </div>
 
-  <button onclick="addTransaction()">Add</button>
+  <ul id="list"></ul>
 
-  <h3>Transactions</h3>
-  <div id="list"></div>
-
-</div>
-
-<script type="module" src="script.js"></script>
-
+  <script type="module" src="./app.js"></script>
 </body>
 </html>
